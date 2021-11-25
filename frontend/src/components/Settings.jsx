@@ -21,51 +21,68 @@ function Settings(props) {
         props.setTeamTwoName(value);
     }
 
-    function updateImage() {
-        var file = URL.createObjectURL(document.getElementById('fileItem').files[0]);
-        this.setTeamOneImage(file);
+    function updateTeamOneImage() {
+        var file = URL.createObjectURL(document.getElementById('teamOneImage').files[0]);
+        props.setTeamOneImage(file);
+    }
+
+    function updateTeamTwoImage() {
+        var file = URL.createObjectURL(document.getElementById('teamTwoImage').files[0]);
+        props.setTeamTwoImage(file);
     }
 
     return (
         <div className={settingsStyles.fullBox}>
             <div className={settingsStyles.smallBox}>
-                <h1>
+                <div className={settingsStyles.boxTitle}>
                     Timer Manual Override
-                </h1>
-                <div>
-                    <button onClick={()=>adjustTime(-1)}>←</button>
+                </div>
+                <div className={settingsStyles.timerBox}>
+                    <button style={{"margin": "1%", "color": "black"}} onClick={()=>adjustTime(-60)}>←←</button>
+                    <button style={{"margin": "1%", "color": "black"}} onClick={()=>adjustTime(-1)}>←</button>
                     {("0" + Math.floor((props.time/6000)%60)).slice(-2) + ":" + ("0" + Math.floor((props.time/100)%60)).slice(-2)}
-                    <button onClick={()=>adjustTime(1)}>→</button>
+                    <button style={{"margin": "1%", "color": "black"}} onClick={()=>adjustTime(1)}>→</button>
+                    <button style={{"margin": "1%", "color": "black"}} onClick={()=>adjustTime(60)}>→→</button>
                 </div>
             </div>
             <div className={settingsStyles.smallBox}>
-                <h1>
+                <div className={settingsStyles.boxTitle}>
                     Set Team 1
-                </h1>
-                <div>
-                    Current Name: {props.teamOneName}
-                    <Search 
-                        enterButton="Enter" 
-                        onSearch={updateTeamOneName}
-                        style={{width: "100%"}} 
-                        placeholder="enter a new team name..."
-                    />
-                    <input type="file" id="fileItem" onChange={()=>updateImage}/>
+                </div>
+                <div className={settingsStyles.subBox}>
+                    <div>
+                        Current Name: {props.teamOneName}
+                        <Search 
+                            enterButton="Enter" 
+                            onSearch={updateTeamOneName}
+                            style={{width: "100%"}} 
+                            placeholder="enter a new team name..."
+                        />
+                    </div>
+                    <div className={settingsStyles.subBox}>
+                        Change Team Image
+                        <input type="file" id="teamOneImage" onChange={()=>updateTeamOneImage()}/>
+                    </div>
                 </div>
             </div>
             <div className={settingsStyles.smallBox}>
-                <h1>
+                <div className={settingsStyles.boxTitle}>
                     Set Team 2
-                </h1>
-                <div>
-                    Current Name: {props.teamTwoName}
-                    <Search 
-                        enterButton="Enter" 
-                        onSearch={updateTeamTwoName}
-                        style={{width: "100%"}} 
-                        placeholder="enter a new team name..."
-                    />
-                    <input type="file" id="fileItem" onChange={()=>updateImage}/>
+                </div>
+                <div className={settingsStyles.subBox}>
+                    <div>
+                        Current Name: {props.teamTwoName}
+                        <Search 
+                            enterButton="Enter" 
+                            onSearch={updateTeamTwoName}
+                            style={{width: "100%"}} 
+                            placeholder="enter a new team name..."
+                        />
+                    </div>
+                    <div className={settingsStyles.subBox}>
+                        Change Team Image
+                        <input type="file" id="teamTwoImage" onChange={()=>updateTeamTwoImage()}/>
+                    </div>
                 </div>
             </div>
         </div>

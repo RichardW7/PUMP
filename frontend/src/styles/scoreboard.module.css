@@ -1,7 +1,11 @@
 
+:root {
+    --background-color: rgb(10, 10, 50);
+}
+
 .topSection {
     height: 10vh;
-    background-color: red;
+    background-color: var(--background-color);
 }
 
 .settings {
@@ -13,12 +17,14 @@
 
 .middleSection {
     height: 50vh;
-    background-color: green;
+    background-color: var(--background-color);
     display: flex;
+    color: white;
+
 }
 
 .teamBox {
-    background-color: orange;
+    background-color: var(--background-color);
     height: 46vh;
     width: 30%;
     margin: 1%;
@@ -30,20 +36,21 @@
 }
 
 .centerInfo {
-    background-color: violet;
+    background-color: var(--background-color);
     height: 50vh;
     width: 40%;
 }
 
 .topCenterInfo {
-    background-color: rgb(150, 150, 150);
+    background-color: var(--background-color);
     height: 20%;
     text-align: center;
-    
+    color: white;
+    font-size: 50px;
 }
 
 .middleCenterInfo {
-    background-color: rgb(100, 100, 100);
+    background-color: var(--background-color);
     height: 60%;
     font-size: 100px;
     align-items: center;
@@ -53,7 +60,7 @@
 }
 
 .bottomCenterInfo {
-    background-color: rgb(150, 150, 150);
+    background-color: var(--background-color);
     height: 20%;
     font-size: 40px;
     text-align: center;
@@ -62,37 +69,37 @@
 .bottomSection {
     width: 100%;
     height: 10vh;
-    background-color: blue;
+    background-color: var(--background-color);
     display: flex;
     
 }
 
+.startStop {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .start {
-    
-    background-color: green;
+    background-color: rgb(119, 221, 119);
     width: 20%;
     font-size: 30px;
     border-radius: 20px;
-    align-self: center;
-    
-    display: inline-block;
-    margin: 0 auto;
+    margin: 1%;
 }
 
 .stop {
-    background-color: red;
+    background-color: rgb(255, 105, 97);
     width: 20%;
     font-size: 30px;
     border-radius: 20px;
-    align-self: center;
-
-    display: inline-block;
-    margin: 0 auto;
+    margin: 1%;
 }
 
 .spacing {
     height: 10vh;
-    background-color: white;
+    background-color: var(--background-color);
 }
 
 .buttonStack {
@@ -102,12 +109,12 @@
 }
 
 .plus {
-    background-color: green;
+    background-color: rgb(119, 221, 119);
     width: 100%;
 }
 
 .minus {
-    background-color: red;
+    background-color: rgb(255, 105, 97);
     width: 100%;
 }
 
@@ -118,6 +125,7 @@
 
 .teamNameSpacer {
     width: 40%;
+    background-color: var(--background-color);
 }
 
 .teamName {
@@ -125,4 +133,6 @@
     display: flex;
     justify-content: center;
     font-size: 40px;
+    background-color: var(--background-color);
+    color: white;
 }

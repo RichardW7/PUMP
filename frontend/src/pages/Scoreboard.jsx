@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import scoreboardStyles from '../styles/scoreboard.module.css'
+import axios from 'axios'
 
 import teamOne from '../assets/toronto.png';
 import teamTwo from '../assets/ottawa.png';
@@ -25,31 +26,17 @@ function Scoreboard() {
   const [teamOneImage, setTeamOneImage] = useState(teamOne);
   const [teamTwoImage, setTeamTwoImage] = useState(teamTwo);
 
-  /*
-  function axiosFunc() {
+  
+  function checkSignal() {
 
-    let data_packet = {
-      search: 0,
-    }
-    console.log(data_packet);
-    axios.get('http://localhost:3001/getStatus', data_packet).then(res => {
-        console.log(res);
-        //setItemList(res.data);
+    axios.get('http://localhost:3001/getStatus').then(res => {
+        console.log(res.data.signal);
     })
 
-    //console.log(result)
-
-      
-    
-    axios.get('https://api.warframestat.us/pc').then(results => {
-       this.setState({
-          alerts: results.data.alerts
-       });
-       setTimeout(this.axiosFunc, 1000 * 60);
-    })
- }*/
+ }
 
   useEffect(() => {
+    checkSignal();
       let interval = null;
     
       if (running) {
@@ -113,8 +100,8 @@ function Scoreboard() {
     return (
         <div>
             <div className={scoreboardStyles.topSection}>
-              <SettingOutlined onClick={openSettings} className={scoreboardStyles.settings}/>
-              <Modal title="Settings" visible={settingsOpen} onOk={closeSettings} onCancel={closeSettings} width={1000}>
+              <SettingOutlined onClick={openSettings} className={scoreboardStyles.settings} style={{"color": "white"}}/>
+              <Modal title="Settings" visible={settingsOpen} onOk={closeSettings} onCancel={closeSettings} width={1200}>
                 <Settings 
                   time={time} 
                   setTime={setTime} 
@@ -134,7 +121,7 @@ function Scoreboard() {
                 </div>
                 <div className={scoreboardStyles.centerInfo}>
                     <div className={scoreboardStyles.topCenterInfo}>
-                        <h1>Scoreboard</h1>
+                        Period 1
                     </div>
                     <div className={scoreboardStyles.middleCenterInfo}>
                       <div className={scoreboardStyles.buttonStack}>
@@ -169,14 +156,18 @@ function Scoreboard() {
               </div>
             </div>
             <div className={scoreboardStyles.bottomSection}>
-            <button onClick={()=>handleStop()} className={scoreboardStyles.stop}>
-              Pause
-            </button>
-            
-            <button onClick={()=>handleStart()} className={scoreboardStyles.start}>
-              Start
-            </button>
+              <div className={scoreboardStyles.startStop}>
+                <button onClick={()=>handleStop()} className={scoreboardStyles.stop}>
+                  Pause
+                </button>
+                
+                <button onClick={()=>handleStart()} className={scoreboardStyles.start}>
+                  Start
+                </button>
+              </div>
             </div>
+            <div className={scoreboardStyles.spacing}></div>
+            <div className={scoreboardStyles.spacing}></div>            
         </div>
     )
 }

@@ -4,8 +4,8 @@ const board = new Board();
 const express = require('express');
 const app = express();
 const PORT = 3001;
-const getStatus = require('./routes/getStatus');
 
+var signal = 1;
 
 app.listen(PORT, function() {
   console.log(`Server is running on port: ${PORT}`);
@@ -18,11 +18,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/getStatus', getStatus);
-
 board.on("ready", () => {
 
-  // Create a standard `led` component instance
   var button = new Button(12);
 
 
@@ -39,6 +36,7 @@ board.on("ready", () => {
   });
 
   button.on("release", function() {
+    signal = 1;
 
     console.log("3"); 
 
@@ -47,10 +45,15 @@ board.on("ready", () => {
   var sensor = new Sensor("0");
 
   sensor.on("change", function() {
-    //console.log(this.value);
+    console.log(this.value);
     if(this.value > 700) {
+        signal = 0;
         console.log("We blew.");
     }
   });
 
+});
+
+app.get('/getStatus', async (req, res) => {
+  res.status(201).json({ signal });
 });

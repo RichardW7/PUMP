@@ -10,7 +10,6 @@ import Settings from '../components/Settings.jsx';
 import { Modal, Button } from 'antd';
 
 import { SettingOutlined } from '@ant-design/icons';
-import axios from 'axios'
 
 function Scoreboard() {
 
@@ -27,20 +26,20 @@ function Scoreboard() {
   const [teamTwoImage, setTeamTwoImage] = useState(teamTwo);
 
   /*
-  axiosFunc = () => {
+  function axiosFunc() {
 
     let data_packet = {
-      search: result,
+      search: 0,
     }
     console.log(data_packet);
-    axios.post('http://localhost:3001/getSearchItems', data_packet).then(res => {
+    axios.get('http://localhost:3001/getStatus', data_packet).then(res => {
         console.log(res);
-        setItemList(res.data);
-        
+        //setItemList(res.data);
     })
 
-    console.log(result)
+    //console.log(result)
 
+      
     
     axios.get('https://api.warframestat.us/pc').then(results => {
        this.setState({

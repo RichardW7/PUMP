@@ -6,7 +6,11 @@ import scoreboardStyles from '../styles/scoreboard.module.css'
 import teamOne from '../assets/toronto.png';
 import teamTwo from '../assets/ottawa.png';
 
+import Settings from '../components/Settings.jsx';
+import { Modal, Button } from 'antd';
+
 import { SettingOutlined } from '@ant-design/icons';
+import axios from 'axios'
 
 function Scoreboard() {
 
@@ -19,12 +23,42 @@ function Scoreboard() {
   const [teamOneName, setTeamOneName] = useState("Toronto Maple Leafs");
   const [teamTwoName, setTeamTwoName] = useState("Ottawa Senators")
 
+  const [teamOneImage, setTeamOneImage] = useState(teamOne);
+  const [teamTwoImage, setTeamTwoImage] = useState(teamTwo);
+
+  /*
+  axiosFunc = () => {
+
+    let data_packet = {
+      search: result,
+    }
+    console.log(data_packet);
+    axios.post('http://localhost:3001/getSearchItems', data_packet).then(res => {
+        console.log(res);
+        setItemList(res.data);
+        
+    })
+
+    console.log(result)
+
+    
+    axios.get('https://api.warframestat.us/pc').then(results => {
+       this.setState({
+          alerts: results.data.alerts
+       });
+       setTimeout(this.axiosFunc, 1000 * 60);
+    })
+ }*/
+
   useEffect(() => {
       let interval = null;
     
       if (running) {
         interval = setInterval(() => {
           setTime((time) => time - 1);
+          if(time%1000 == 0) {
+            checkState();
+          }
         }, 10);
       } else {
         clearInterval(interval);
@@ -60,20 +94,44 @@ function Scoreboard() {
         setTeamTwoScore(curScore);
       }
     }
+
+    const [settingsOpen, setSettingsOpen] = useState(false);
+
+    const openSettings = () => {
+      setSettingsOpen(true);
+    };
+
+    const closeSettings = () => {
+      setSettingsOpen(false);
+    };
+
+    function checkState() {
+      console.log("Axios call");
+    }
+
     
 
     return (
         <div>
             <div className={scoreboardStyles.topSection}>
-              <Link to="/settings">
-                <SettingOutlined className={scoreboardStyles.settings}/>
-              </Link>
-              
+              <SettingOutlined onClick={openSettings} className={scoreboardStyles.settings}/>
+              <Modal title="Settings" visible={settingsOpen} onOk={closeSettings} onCancel={closeSettings} width={1000}>
+                <Settings 
+                  time={time} 
+                  setTime={setTime} 
+                  teamOneName={teamOneName} 
+                  setTeamOneName={setTeamOneName}
+                  teamTwoName={teamTwoName} 
+                  setTeamTwoName={setTeamTwoName}
+                  setTeamOneImage={setTeamOneImage}
+                  setTeamTwoImage={setTeamTwoImage}
+                />
+              </Modal>
             </div>
             <div className={scoreboardStyles.spacing}/>
             <div className={scoreboardStyles.middleSection}>
                 <div className={scoreboardStyles.teamBox}>
-                  <img src={teamOne} className={scoreboardStyles.teamImage}/>
+                  <img src={teamOneImage} className={scoreboardStyles.teamImage}/>
                 </div>
                 <div className={scoreboardStyles.centerInfo}>
                     <div className={scoreboardStyles.topCenterInfo}>
@@ -99,7 +157,7 @@ function Scoreboard() {
                     </div>
                 </div>
                 <div className={scoreboardStyles.teamBox}>
-                  <img src={teamTwo} className={scoreboardStyles.teamImage}/>
+                  <img src={teamTwoImage} className={scoreboardStyles.teamImage}/>
                 </div>
             </div>
             <div className={scoreboardStyles.teamNameBox}>

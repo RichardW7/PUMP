@@ -1,0 +1,9 @@
+
+.fullBox {
+    display: flex;
+    justify-content: center;
+}
+
+.smallBox {
+    padding: 3%;
+}
